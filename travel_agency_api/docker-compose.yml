@@ -1,0 +1,30 @@
+# docker-compose.yml
+
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: travel_agency
+      POSTGRES_USER: traveluser
+      POSTGRES_PASSWORD: travelpass
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=True
+      - DOCKER_CONTAINER=1
+      - DJANGO_SECRET_KEY=your-secret-key-here
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
