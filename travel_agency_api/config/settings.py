@@ -8,19 +8,14 @@ import os
 from pathlib import Path
 from datetime import timedelta
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-travel-agency-api-2025')
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-# Allow all hosts in development; restrict in production
 ALLOWED_HOSTS = ['*'] if DEBUG else ['yourdomain.com']
 
-# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -29,11 +24,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Third-party
     'rest_framework',
     'drf_spectacular',
 
-    # Local
     'tours',
 ]
 
@@ -133,9 +126,7 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
-# ----------------------------
-# JWT Settings
-# ----------------------------
+# JWT настройки
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
@@ -144,9 +135,7 @@ SIMPLE_JWT = {
     'USER_ID_CLAIM': 'user_id',
 }
 
-# ----------------------------
 # drf-spectacular (Swagger)
-# ----------------------------
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Travel Agency API',
     'DESCRIPTION': 'REST API для туристического агентства. Поддерживает туры, бронирования и отзывы.',
